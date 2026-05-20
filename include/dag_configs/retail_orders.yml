@@ -1,0 +1,48 @@
+default:
+  default_args:
+    owner: retail-platform-team
+    retries: 2
+    retry_delay_sec: 30
+
+  schedule: "@hourly"
+  catchup: false
+
+retail_orders_us:
+  description: "US retail order ingestion"
+
+  tasks:
+    extract_orders:
+      operator: airflow.operators.bash.BashOperator
+      bash_command: "echo Extracting US orders"
+      queue: retail_workers
+
+    transform_orders:
+      operator: airflow.operators.bash.BashOperator
+      bash_command: "echo Transforming US orders"
+      dependencies: [extract_orders]
+      queue: retail_workers
+
+    load_orders:
+      operator: airflow.operators.bash.BashOperator
+      bash_command: "echo Loading US orders"
+      dependencies: [transform_orders]
+      queue: retail_workers
+
+retail_orders_eu:
+  description: "EU retail order ingestion"
+
+  tasks:
+    extract_orders:
+      operator: airflow.operators.bash.BashOperator
+      bash_command: "echo Extracting EU orders"
+      queue: retail_workers  
+    transform_orders:
+      operator: airflow.operators.bash.BashOperator
+      bash_command: "echo Transforming EU orders"
+      dependencies: [extract_orders]
+      queue: retail_workers
+    load_orders:
+      operator: airflow.operators.bash.BashOperator
+      bash_command: "echo Loading EU orders"
+      dependencies: [transform_orders]
+      queue: retail_workers 
