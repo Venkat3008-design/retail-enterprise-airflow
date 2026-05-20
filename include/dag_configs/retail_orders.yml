@@ -34,7 +34,7 @@ retail_orders_eu:
   tasks:
     extract_orders:
       operator: airflow.operators.bash.BashOperator
-      bash_command: "echo Extracting EU orders"
+      bash_command: "exit 1"
       queue: retail_workers  
     transform_orders:
       operator: airflow.operators.bash.BashOperator
