@@ -1,0 +1,23 @@
+name: Astro DAG Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Astro CLI
+        uses: astronomer/setup-astro-cli@v0.0.1
+
+      - name: Parse DAGs
+        run: astro dev parse
