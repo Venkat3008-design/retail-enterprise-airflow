@@ -2,7 +2,7 @@ default:
   default_args:
     owner: retail-platform-team
     retries: 2
-    retry_delay_sec: 5
+    retry_delay: 5
 
   schedule: "@hourly"
   catchup: false
